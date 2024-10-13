@@ -1,0 +1,11 @@
+res://vampireclonetutorial.tscn
+res://player.tscn
+res://gun.tscn
+res://gun.gd
+res://enemy.tscn
+res://bullet.gd
+res://bullet.tscn
+res://enemy.gd
+res://player.gd
+res://vampireclonetutorial.gd
+res://button.gd

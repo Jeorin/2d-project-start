@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://bslimcu3a1321"]
+
+[ext_resource type="PackedScene" uid="uid://bpwd6olqerfd8" path="res://player.tscn" id="1_adh38"]
+[ext_resource type="Script" path="res://vampireclonetutorial.gd" id="1_qf61d"]
+[ext_resource type="PackedScene" uid="uid://ceddnd4nqrvad" path="res://pinetree.tscn" id="2_7mih2"]
+[ext_resource type="Script" path="res://button.gd" id="4_luxfl"]
+
+[sub_resource type="Curve2D" id="Curve2D_v2u5p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -213, -210, 0, 0, 0, 0, 2086, -219, 0, 0, 0, 0, 2063, 1128, 0, 0, 0, 0, -222, 1133, 0, 0, 0, 0, -213, -210)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_qf61d")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Player" parent="." instance=ExtResource("1_adh38")]
+unique_name_in_owner = true
+position = Vector2(899, 456)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-899, -456)
+curve = SubResource("Curve2D_v2u5p")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-213, -210)
+rotation = -0.00391473
+
+[node name="Pinetree" parent="." instance=ExtResource("2_7mih2")]
+position = Vector2(265, 501)
+
+[node name="Pinetree7" parent="." instance=ExtResource("2_7mih2")]
+position = Vector2(310, 675)
+
+[node name="Pinetree2" parent="." instance=ExtResource("2_7mih2")]
+position = Vector2(371, 691)
+
+[node name="Pinetree3" parent="." instance=ExtResource("2_7mih2")]
+position = Vector2(1583, 192)
+
+[node name="Pinetree4" parent="." instance=ExtResource("2_7mih2")]
+position = Vector2(1267, 200)
+
+[node name="Pinetree5" parent="." instance=ExtResource("2_7mih2")]
+position = Vector2(1664, 663)
+
+[node name="Pinetree6" parent="." instance=ExtResource("2_7mih2")]
+position = Vector2(262, 718)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.490196)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 0
+offset_left = 655.0
+offset_top = 336.0
+offset_right = 1217.0
+offset_bottom = 530.0
+theme_override_font_sizes/font_size = 50
+text = "Game Over!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="GameOver/ColorRect"]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 0
+offset_left = 838.0
+offset_top = 481.0
+offset_right = 1012.0
+offset_bottom = 545.0
+theme_override_font_sizes/font_size = 25
+text = "Try Again?"
+script = ExtResource("4_luxfl")
+
+[connection signal="player_death" from="Player" to="." method="_on_player_player_death"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="GameOver/ColorRect/Button" to="." method="_on_button_pressed"]

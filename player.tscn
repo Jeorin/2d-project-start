@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpwd6olqerfd8"]
+
+[ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="1_5cps5"]
+[ext_resource type="Script" path="res://player.gd" id="1_aq8ih"]
+[ext_resource type="PackedScene" uid="uid://dtqul5np4mfvq" path="res://gun.tscn" id="3_lgvst"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c6ys7"]
+radius = 39.1152
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gjjao"]
+radius = 43.0465
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gehka"]
+bg_color = Color(0.816749, 0.510077, 0.407883, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hyhq"]
+bg_color = Color(0.164374, 0.710857, 0.381758, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_aq8ih")
+
+[node name="HappyBoo" parent="." instance=ExtResource("1_5cps5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_c6ys7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Gun" parent="." instance=ExtResource("3_lgvst")]
+position = Vector2(0, -28)
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_gjjao")
+debug_color = Color(0.86938, 0.300866, 0.475576, 0.42)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -902.0
+offset_top = -508.0
+offset_right = -689.0
+offset_bottom = -481.0
+theme_override_styles/background = SubResource("StyleBoxFlat_gehka")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3hyhq")
+step = 0.1
+value = 100.0
+show_percentage = false
